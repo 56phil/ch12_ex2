@@ -38,11 +38,11 @@ int main() {
     static const char fn[] = "/Users/prh/Keepers/code/cpp/CSIS 223/ch12/Notes/Ch12_Ex2Data.txt";
     FILE *file = fopen(fn, "r");
     fseek(file, 0, SEEK_END);
-    long fsize = ftell(file);
+    long fsize = ftell(file) + 1;
     fseek(file, 0, SEEK_SET);
-    char *buff = new char[fsize + 1];
-    memset(buff, 0, fsize + 1);
-    fread(buff, 1, fsize, file);
+    char *buff = new char[fsize];
+    memset_s(buff, fsize,  0, fsize);
+    fread(buff, 1, --fsize, file);
     fclose(file);
     char *buffPtr(buff);
     char *workPtr(buff);
@@ -86,7 +86,7 @@ int main() {
         << setw(2) << test.getGrade(keyPtr, keySize) << "\n";
     }
     
-    delete [] keyPtr;
+    delete [] buff;
     
     return 0;
 }
